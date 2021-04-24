@@ -92,7 +92,7 @@ export default {
   async fetch() {
     try {
       const { params } = this.$route
-      const company = await this.$axios.$get(`/compajies/${params.id}`)
+      const company = await this.$axios.$get(`/companies/${params.id}`)
       this.company = company
     } catch (error) {
       this.$nuxt.error(error)

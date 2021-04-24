@@ -4,12 +4,6 @@
       {{ errorMessage }}
     </h1>
     <NuxtLink to="/"> Home page </NuxtLink>
-    <VAlert text type="error" class="mt-6">
-      TODO: MAJOR – when clicking on “see more” we see an error layout<br />
-      This shouldn't be the case
-      <br />
-      Remove the <code>VAlert</code> when it's done
-    </VAlert>
   </VApp>
 </template>
 

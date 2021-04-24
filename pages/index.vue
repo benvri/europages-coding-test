@@ -34,12 +34,6 @@
       <br />
       Remove the <code>VAlert</code> when it's done
     </VAlert>
-    <VAlert text type="error" class="mt-6">
-      TODO: MAJOR – when clicking on “see more” we see an error layout<br />
-      This shouldn't be the case
-      <br />
-      Remove the <code>VAlert</code> when it's done
-    </VAlert>
     <VaCompanyCard
       v-for="company of companies"
       :key="company.id"
