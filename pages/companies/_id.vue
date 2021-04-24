@@ -50,18 +50,7 @@
         <br />
         Remove the <code>VAlert</code> when it's done
       </VAlert>
-      <VAlert text type="error">
-        TODO: MAJOR – implement the reviews<br />
-        <a
-          href="https://vuetifyjs.com/en/components/ratings/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Use the Vuetify Rating component
-        </a>
-        <br />
-        Remove the <code>VAlert</code> when it's done
-      </VAlert>
+      
       <v-rating
         empty-icon="mdi-heart-outline"
         full-icon="mdi-heart"
@@ -70,7 +59,7 @@
         color="red"
         background-color="red"
         length="5"
-        size="32"
+        size="35"
         :value=meanRating
       ></v-rating>
       <ul class="pa-0">

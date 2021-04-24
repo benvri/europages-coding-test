@@ -8,19 +8,17 @@
     <VCardTitle class="headline">
       {{ company.name }}
     </VCardTitle>
-    <VAlert text type="warning" class="mx-4 d-inline-block align-self-start">
-      TODO: MINOR – display the average rating of the reviews
-      <br />
-      <a
-        href="https://vuetifyjs.com/en/components/ratings/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Use the Vuetify Rating component
-      </a>
-      <br />
-      Remove the <code>VAlert</code> when it's done
-    </VAlert>
+    <v-rating
+      empty-icon="mdi-heart-outline"
+      full-icon="mdi-heart"
+      half-icon="mdi-heart-half"
+      readonly
+      color="red"
+      background-color="red"
+      length="5"
+      size="35"
+      :value=meanRating
+    ></v-rating>
     <VCardText>
       <VaComponayLocation :location="company.location" />
     </VCardText>
@@ -49,6 +47,13 @@ export default {
   },
   computed: {
     // TODO: we should be able to have the average of all ratings
+    meanRating: function () {
+      let mean = 0
+      for(const review of this.company.reviews){
+        mean += review.rating
+      }
+      return mean / this.company.reviews.length
+    }
   },
 }
 </script>
