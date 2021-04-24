@@ -62,6 +62,17 @@
         <br />
         Remove the <code>VAlert</code> when it's done
       </VAlert>
+      <v-rating
+        empty-icon="mdi-heart-outline"
+        full-icon="mdi-heart"
+        half-icon="mdi-heart-half"
+        readonly
+        color="red"
+        background-color="red"
+        length="5"
+        size="32"
+        :value=meanRating
+      ></v-rating>
       <ul class="pa-0">
         <VSkeletonLoader
           v-if="$fetchState.pending"
@@ -100,6 +111,13 @@ export default {
   },
   computed: {
     // TODO: we should be able to have the mean of all ratings
+    meanRating: function () {
+      let mean = 0
+      for(const review of this.company.reviews){
+        mean += review.rating
+      }
+      return mean / this.company.reviews.length
+    }
   },
 }
 </script>
