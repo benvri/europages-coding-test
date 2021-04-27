@@ -11,20 +11,6 @@
         gradient="to top, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       >
         <VCardTitle class="text-h3">{{ company.name }}</VCardTitle>
-        <VAlert type="info" class="mx-4 d-inline-block">
-          TODO: MINOR – display the mean rating
-          <br />
-          <a
-            href="https://vuetifyjs.com/en/components/ratings/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="white--text"
-          >
-            Use the Vuetify Rating component
-          </a>
-          <br />
-          Remove the <code>VAlert</code> when it's done
-        </VAlert>
       </VImg>
       <VCardText>
         <div class="page-company__contact-info">
@@ -32,13 +18,7 @@
           <div>
             <PhPhone size="24" />
             <p class="text-body-1">
-              {{ company.phone }}
-              <VAlert text>
-                ↑ TODO: PATCH – we would like to display the formatted phone<br />
-                There is a very simple solution to that the Backend dev said
-                <br />
-                Remove the <code>VAlert</code> when it's done
-              </VAlert>
+              {{ company.phone | phone }}
             </p>
           </div>
         </div>
@@ -108,6 +88,12 @@ export default {
       return mean / this.company.reviews.length
     }
   },
+  filters:{
+    phone: function(value) {
+      let x = value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2})/);
+      return '+'+ x[1] + ' ' + x[2] + ' ' + x[3] + ' ' + x[4] + ' ' + x[5] + ' ' + x[6] 
+    }
+  }
 }
 </script>
 

@@ -16,7 +16,7 @@
       color="red"
       background-color="red"
       length="5"
-      size="35"
+      size="20"
       :value=meanRating
     ></v-rating>
     <VCardText>
