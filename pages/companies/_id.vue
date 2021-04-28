@@ -1,57 +1,55 @@
 <template>
-  <div class="page-company">
-    <VSkeletonLoader v-if="$fetchState.pending" type="card" />
-    <VCard v-else>
-      <VImg
-        v-for="photo in company.photos"
-        :key="photo"
-        :src="company.photos[0]"
-        height="250"
-        class="white--text"
-        gradient="to top, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-      >
-        <VCardTitle class="text-h3">{{ company.name }}</VCardTitle>
-      </VImg>
-      <VCardText>
-        <div class="page-company__contact-info">
-          <VaCompanyLocation :location="company.location" />
-          <div>
-            <PhPhone size="24" />
-            <p class="text-body-1">
-              <a :href="'tel:'+ company.phone">{{ company.phone | phone }}</a>
-            </p>
-          </div>
-        </div>
-      </VCardText>
-    </VCard>
-    <aside>
-      <VAlert text>
-        TODO: PATCH – this should go under the company card on small device
-        <br />
-        Remove the <code>VAlert</code> when it's done
-      </VAlert>
-      
-      <v-rating
-        empty-icon="mdi-heart-outline"
-        full-icon="mdi-heart"
-        half-icon="mdi-heart-half"
-        readonly
-        color="red"
-        background-color="red"
-        length="5"
-        size="35"
-        :value=meanRating
-      ></v-rating>
-      <ul class="pa-0">
-        <VSkeletonLoader
-          v-if="$fetchState.pending"
-          type="article"
-          elevation="2"
-        />
-        <VaCompanyReview v-else />
-      </ul>
-    </aside>
-  </div>
+  <v-container class="grey lighten-5">
+    <v-row>
+      <v-col cols="12" sm="12" md="8">
+        <VSkeletonLoader v-if="$fetchState.pending" type="card" />
+        <VCard v-else>
+          <VImg
+            v-for="photo in company.photos"
+            :key="photo"
+            :src="company.photos[0]"
+            height="250"
+            class="white--text"
+            gradient="to top, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+          >
+            <VCardTitle class="text-h3">{{ company.name }}</VCardTitle>
+          </VImg>
+          <VCardText>
+            <div class="page-company__contact-info">
+              <VaCompanyLocation :location="company.location" />
+              <div>
+                <PhPhone size="24" />
+                <p class="text-body-1">
+                  <a :href="'tel:'+ company.phone">{{ company.phone | phone }}</a>
+                </p>
+              </div>
+            </div>
+          </VCardText>
+        </VCard>
+      </v-col>
+      <v-col cols="12" sm="12" md="4">
+        <v-rating
+          empty-icon="mdi-heart-outline"
+          full-icon="mdi-heart"
+          half-icon="mdi-heart-half"
+          readonly
+          color="red"
+          background-color="red"
+          length="5"
+          size="35"
+          :value=meanRating
+        ></v-rating>
+        <ul class="pa-0">
+          <VSkeletonLoader
+            v-if="$fetchState.pending"
+            type="article"
+            elevation="2"
+          />
+          <VaCompanyReview v-else />
+        </ul>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -79,7 +77,6 @@ export default {
     }
   },
   computed: {
-    // TODO: we should be able to have the mean of all ratings
     meanRating: function () {
       if(!this.company.reviews){
         return 0
@@ -101,11 +98,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-company {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 16rem;
-  grid-gap: var(--gutter);
-}
 .page-company__contact-info {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

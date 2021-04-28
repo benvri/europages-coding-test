@@ -46,7 +46,6 @@ export default {
     company: { type: Object, default: () => ({}) },
   },
   computed: {
-    // TODO: we should be able to have the average of all ratings
     meanRating: function () {
       let mean = 0
       for(const review of this.company.reviews){
