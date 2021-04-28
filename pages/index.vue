@@ -1,44 +1,27 @@
 <template>
-  <div>
+  <div> 
     <VCard class="mb-4">
       <VSystemBar />
-      <VAlert text type="success">
-        TODO: BONUS - this is a bonus! (do that at the very end if you're
-        willing to)<br />
-        Implement the rating filter <br />
-        Remove the <code>VAlert</code> when it's done
-      </VAlert>
       <VBanner single-line>
         Filter the restaurants by ratings
         <template #actions>
           <VSelect
             :items="ratingFilterItems"
+            v-model="minimumRating"
+            v-on:change="selectEvent"
             filled
             label="choose your rating"
           />
         </template>
       </VBanner>
     </VCard>
-    <VAlert text type="error">
-      TODO: MAJOR – this should be presentend as a grid<br />
-      • 3 columns max<br />
-      • 1 column on small devices <br />
-      • DO NOT USE
-      <a
-        href="https://vuetifyjs.com/en/components/grids/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Vuetify's grid components
-      </a>
-      <br />
-      Remove the <code>VAlert</code> when it's done
-    </VAlert>
-    <VaCompanyCard
-      v-for="company of companies"
-      :key="company.id"
-      :company="company"
-    />
+    <div class="d-flex flex-wrap"> 
+      <VaCompanyCard
+        v-for="company of selectedCompanies"
+        :key="company.id"
+        :company="company"
+      />
+    </div>
   </div>
 </template>
 
@@ -53,6 +36,7 @@ export default {
   data() {
     return {
       companies: [],
+      selectedCompanies : [],
       minimumRating: 0,
     }
   },
@@ -60,6 +44,7 @@ export default {
     try {
       const companies = await this.$axios.$get(`/companies`)
       this.companies = companies
+      this.selectedCompanies = this.companies
     } catch (error) {
       this.$nuxt.error(error)
     }
@@ -76,19 +61,35 @@ export default {
       ]
     },
   },
+  methods:{
+    selectEvent(){
+      this.selectedCompanies = []
+      for(const company of this.companies){
+        let mean = 0
+        for(const review of company.reviews){
+          mean += review.rating
+        }
+        company.meanRating = mean / company.reviews.length
+        if(company.meanRating > this.minimumRating){
+          this.selectedCompanies.push(company)
+        }
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~vuetify/src/styles/styles.sass';
-
-// TODO: MAJOR – this should be presentend as a grid
-// 3 rows max
-// 1 row on small devices
-
-// NOTE: you  can use Vuetify breakpoints to handle the ≠ layouts
-// • https://vuetifyjs.com/en/features/breakpoints/
-// @media #{map-get($display-breakpoints, 'lg-and-up')} {
-//   do stuff…
-// }
+@media #{map-get($display-breakpoints, 'md-and-up')} {
+  .va-company-card {
+    width: 32%;
+    margin:4px;
+  }
+}
+@media #{map-get($display-breakpoints, 'sm-and-down')} {
+  .va-company-card {
+    width: 100%;
+  }
+}
 </style>

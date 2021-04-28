@@ -18,7 +18,7 @@
           <div>
             <PhPhone size="24" />
             <p class="text-body-1">
-              {{ company.phone | phone }}
+              <a :href="'tel:'+ company.phone">{{ company.phone | phone }}</a>
             </p>
           </div>
         </div>
@@ -81,6 +81,9 @@ export default {
   computed: {
     // TODO: we should be able to have the mean of all ratings
     meanRating: function () {
+      if(!this.company.reviews){
+        return 0
+      }
       let mean = 0
       for(const review of this.company.reviews){
         mean += review.rating
